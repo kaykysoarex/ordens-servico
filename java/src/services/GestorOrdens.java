@@ -12,7 +12,7 @@ import entities.enums.StatusOS;
 // Guarda a lista de ordens e as buscas. Os dados ficam só na memória (somem ao fechar).
 public class GestorOrdens {
 
-    private List<OrdemServico> ordens = new ArrayList<>();
+    private final List<OrdemServico> ordens = new ArrayList<>();
     private int proximoId = 1;
 
     public OrdemServico abrir(Cliente cliente, Equipamento equipamento,
