@@ -2,6 +2,14 @@
 
 Projeto de estudos em **Java** (console) + **JavaScript** (painel responsivo) para gerenciar ordens de serviço de manutenção de geladeiras e freezers.
 
+## Sobre o projeto
+
+O FrioOS foi criado para colocar os estudos em prática, transformando os conhecimentos aprendidos em um sistema que busca resolver problemas de organização e gerenciamento de ordens de serviço (OS).
+
+Este projeto está em constante evolução. Conforme os estudos avançarem, novas melhorias serão incorporadas para ampliar suas funcionalidades e tornar a experiência cada vez mais moderna.
+
+Venha acompanhar esta trajetória comigo!
+
 ## Estrutura
 
 ```
