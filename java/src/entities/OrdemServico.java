@@ -13,17 +13,17 @@ public class OrdemServico {
     // MEMBRO ESTÁTICO: constante da classe, igual para todas as ordens
     private static final int DIAS_GARANTIA = 90;
 
-    private Integer id;
-    private String defeito;
-    private Integer prazoDias;
-    private Instant abertura;     // DATA-HORA GLOBAL: momento exato, sempre em UTC
+    private final Integer id;
+    private final String defeito;
+    private final Integer prazoDias;
+    private final Instant abertura;     // DATA-HORA GLOBAL: momento exato, sempre em UTC
     private Instant conclusao;    // fica null até a ordem ser concluída
     private StatusOS status;
 
     // COMPOSIÇÃO: a ordem "tem um" cliente, "tem um" equipamento e "tem vários" itens
-    private Cliente cliente;
-    private Equipamento equipamento;
-    private List<ItemServico> itens = new ArrayList<>();
+    private final Cliente cliente;
+    private final Equipamento equipamento;
+    private final List<ItemServico> itens = new ArrayList<>();
 
     public OrdemServico(Integer id, Cliente cliente, Equipamento equipamento,
                         String defeito, Integer prazoDias, Instant abertura) {
