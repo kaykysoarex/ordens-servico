@@ -1,60 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0a6d8c">
-<title>FrioOS · Ordens de Serviço</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b6f8d">
+  <meta name="description" content="Painel de ordens de serviço para assistência de refrigeração.">
+  <title>FrioOS · Ordens de Serviço</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<header><div class="wrap">
-  <div class="top">
-    <div class="brand">
-      <span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5"/></svg></span>
-      <div><h1>FrioOS</h1><span class="sub">Ordens de serviço e garantia</span></div>
+  <header class="site-header">
+    <div class="container header-content">
+      <div class="header-top">
+        <a class="brand" href="#conteudo" aria-label="FrioOS, ir para as ordens">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M3.3 7l17.4 10M3.3 17 20.7 7M9 3.5 12 6l3-2.5M9 20.5l3-2.5 3 2.5"/></svg></span>
+          <span><strong>FrioOS</strong><small>Ordens de serviço e garantia</small></span>
+        </a>
+        <button class="button button-header" id="bDados" type="button">Dados</button>
+      </div>
+      <div class="toolbar">
+        <label class="search-field" for="busca"><span class="sr-only">Buscar ordens</span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><input type="search" id="busca" placeholder="Buscar cliente, modelo, defeito ou número"></label>
+        <button class="button button-primary" id="bNova" type="button"><span aria-hidden="true">+</span> Nova ordem</button>
+      </div>
+      <nav class="filters" id="chips" aria-label="Filtrar ordens"></nav>
     </div>
-    <button id="bDados">Dados</button>
-  </div>
-  <div class="tools"><input type="search" id="busca" placeholder="Buscar cliente, modelo, defeito ou nº" aria-label="Buscar"><button class="pri" id="bNova">＋ Nova ordem</button></div>
-  <div class="chips" id="chips"></div>
-</div></header>
+  </header>
 
-<main class="wrap">
-  <section class="stats" id="stats"></section>
-  <section class="grid" id="lista"></section>
-</main>
+  <main class="container" id="conteudo">
+    <section class="overview" aria-labelledby="resumo-titulo">
+      <div class="section-heading"><div><p class="eyebrow">Visão geral</p><h1 id="resumo-titulo">Acompanhe seus atendimentos</h1></div><p id="contador" class="result-count" aria-live="polite"></p></div>
+      <div class="stats" id="stats"></div>
+    </section>
+    <section aria-labelledby="lista-titulo">
+      <div class="section-heading orders-heading"><div><p class="eyebrow">Ordens de serviço</p><h2 id="lista-titulo">Atendimentos</h2></div></div>
+      <div class="orders-grid" id="lista" aria-live="polite"></div>
+    </section>
+  </main>
 
-<dialog id="dNova"><form method="dialog" id="fNova">
-  <h2>Nova ordem</h2>
-  <label for="nNome">Cliente</label><input id="nNome" required>
-  <label for="nTel">Telefone</label><input id="nTel" type="tel" required>
-  <label for="nTipo">Equipamento</label><select id="nTipo"><option>GELADEIRA</option><option>FREEZER</option><option>EXPOSITOR</option><option>OUTRO</option></select>
-  <label for="nModelo">Marca / modelo</label><input id="nModelo" required>
-  <label for="nDefeito">Defeito relatado</label><input id="nDefeito" required>
-  <label for="nPrazo">Prazo de atendimento (dias)</label><input id="nPrazo" type="number" min="1" value="3" required>
-  <div class="fim"><button type="button" data-fechar>Cancelar</button><button class="pri" value="ok">Abrir ordem</button></div>
-</form></dialog>
+  <dialog id="dNova" aria-labelledby="nova-titulo">
+    <form method="dialog" id="fNova">
+      <div class="dialog-heading"><div><p class="eyebrow">Cadastro</p><h2 id="nova-titulo">Nova ordem</h2></div><button class="icon-button" type="button" data-fechar aria-label="Fechar">×</button></div>
+      <div class="form-grid">
+        <label class="field field-wide" for="nNome">Cliente<input id="nNome" autocomplete="name" required></label>
+        <label class="field" for="nTel">Telefone<input id="nTel" type="tel" autocomplete="tel" required></label>
+        <label class="field" for="nTipo">Equipamento<select id="nTipo"><option>GELADEIRA</option><option>FREEZER</option><option>EXPOSITOR</option><option>OUTRO</option></select></label>
+        <label class="field field-wide" for="nModelo">Marca / modelo<input id="nModelo" required></label>
+        <label class="field field-wide" for="nDefeito">Defeito relatado<input id="nDefeito" required></label>
+        <label class="field" for="nPrazo">Prazo de atendimento (dias)<input id="nPrazo" type="number" min="1" max="365" value="3" required></label>
+      </div>
+      <div class="dialog-actions"><button class="button" type="button" data-fechar>Cancelar</button><button class="button button-primary" value="ok">Abrir ordem</button></div>
+    </form>
+  </dialog>
 
-<dialog id="dItem"><form method="dialog" id="fItem">
-  <h2>Adicionar item</h2>
-  <label for="iDesc">Peça ou serviço</label><input id="iDesc" required>
-  <label for="iQtd">Quantidade</label><input id="iQtd" type="number" min="1" value="1" required>
-  <label for="iPreco">Preço unitário (R$)</label><input id="iPreco" type="number" min="0" step="0.01" required>
-  <div class="fim"><button type="button" data-fechar>Cancelar</button><button class="pri" value="ok">Adicionar</button></div>
-</form></dialog>
+  <dialog id="dItem" aria-labelledby="item-titulo">
+    <form method="dialog" id="fItem">
+      <div class="dialog-heading"><div><p class="eyebrow">Orçamento</p><h2 id="item-titulo">Adicionar item</h2></div><button class="icon-button" type="button" data-fechar aria-label="Fechar">×</button></div>
+      <div class="form-grid">
+        <label class="field field-wide" for="iDesc">Peça ou serviço<input id="iDesc" required></label>
+        <label class="field" for="iQtd">Quantidade<input id="iQtd" type="number" min="1" max="999" value="1" required></label>
+        <label class="field" for="iPreco">Preço unitário (R$)<input id="iPreco" type="number" min="0" step="0.01" required></label>
+      </div>
+      <div class="dialog-actions"><button class="button" type="button" data-fechar>Cancelar</button><button class="button button-primary" value="ok">Adicionar</button></div>
+    </form>
+  </dialog>
 
-<dialog id="dDados">
-  <h2>Dados</h2>
-  <p class="mut">Tudo fica salvo neste navegador. Para levar ou trazer dados (inclusive do programa Java, opção 10), use o JSON.</p>
-  <label for="json">JSON</label><textarea id="json" rows="6"></textarea>
-  <p class="bad" id="erro"></p>
-  <div class="fim">
-    <button id="bImp">Importar</button><button id="bExp">Baixar</button><button id="bEx">Carregar exemplo</button>
-    <button class="perigo" id="bLimpa">Apagar tudo</button><button type="button" data-fechar>Fechar</button>
-  </div>
-</dialog>
+  <dialog id="dDados" aria-labelledby="dados-titulo">
+    <div class="dialog-heading"><div><p class="eyebrow">Backup</p><h2 id="dados-titulo">Dados</h2></div><button class="icon-button" type="button" data-fechar aria-label="Fechar">×</button></div>
+    <p class="dialog-description">Os dados ficam salvos neste navegador. Importe um JSON do programa Java, faça um backup ou carregue dados de demonstração.</p>
+    <label class="field" for="json">JSON<textarea id="json" rows="8" spellcheck="false"></textarea></label>
+    <p class="form-error" id="erro" role="alert"></p>
+    <div class="dialog-actions dialog-actions-data"><button class="button" id="bImp" type="button">Importar</button><button class="button" id="bExp" type="button">Baixar JSON</button><button class="button" id="bEx" type="button">Carregar exemplo</button><button class="button button-danger" id="bLimpa" type="button">Apagar tudo</button></div>
+  </dialog>
 
-<script src="js/app.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
