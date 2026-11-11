@@ -3,8 +3,8 @@ package entities;
 // Peça ou serviço cobrado dentro de uma ordem
 public class ItemServico {
 
-    private String descricao;
-    private Integer quantidade;
+    private final String descricao;
+    private final Integer quantidade;
     private final Double preco;
 
     public ItemServico(String descricao, Integer quantidade, Double preco) {
