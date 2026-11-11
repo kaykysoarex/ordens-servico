@@ -4,8 +4,8 @@ import entities.enums.TipoEquipamento;
 
 public class Equipamento {
 
-    private TipoEquipamento tipo;   // ENUM usado como tipo de um atributo
-    private String modelo;
+    private final TipoEquipamento tipo;   // ENUM usado como tipo de um atributo
+    private final String modelo;
 
     public Equipamento(TipoEquipamento tipo, String modelo) {
         this.tipo = tipo;
