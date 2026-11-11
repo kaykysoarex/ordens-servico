@@ -5,7 +5,7 @@ public class ItemServico {
 
     private String descricao;
     private Integer quantidade;
-    private Double preco;
+    private final Double preco;
 
     public ItemServico(String descricao, Integer quantidade, Double preco) {
         this.descricao = descricao;
