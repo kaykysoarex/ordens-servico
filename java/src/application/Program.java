@@ -27,14 +27,14 @@ public class Program {
 
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);                 // números com ponto (ex.: 50.00)
-        Scanner sc = new Scanner(System.in);
-        GestorOrdens gestor = new GestorOrdens();
+        final Scanner sc = new Scanner(System.in);
+        final GestorOrdens gestor = new GestorOrdens();
 
         int opcao = -1;
         while (opcao != 0) {
             menu();
             opcao = lerInt(sc, "Opção: ");
-            Instant agora = Instant.now();            // momento atual, em UTC
+            final Instant agora = Instant.now();      // momento atual, em UTC
 
             switch (opcao) {
                 case 1: abrirOrdem(sc, gestor, agora); break;
