@@ -11,8 +11,32 @@ ordens-servico/
 │   │   └── enums/         StatusOS, TipoEquipamento
 │   ├── services/          GestorOrdens, ExportadorJson
 │   └── application/       Program (menu no console)
-└── web/                   Aplicativo web: index.html, css/style.css, js/app.js
+├── web/                   Aplicativo web: index.html, css/style.css, js/app.js
+└── sql/                   Estrutura inicial do banco MySQL: schema.sql
 ```
+
+## Banco de dados (SQL)
+
+A pasta `sql/` contém o arquivo `schema.sql`, com a estrutura inicial do banco de dados MySQL do FrioOS. O script cria o banco `frioos` e as tabelas `cliente`, `equipamento`, `ordem_servico` e `item_servico`.
+
+Ele serve apenas para estudo da estrutura SQL neste momento. O programa Java e o painel web ainda não se conectam ao banco.
+
+### Como executar
+
+Com o MySQL instalado, abra o PowerShell na raiz do projeto e execute:
+
+```powershell
+mysql -u root -p < sql/schema.sql
+```
+
+Digite a senha do usuário MySQL quando for solicitada. Para conferir as tabelas criadas, entre no MySQL e execute:
+
+```sql
+USE frioos;
+SHOW TABLES;
+```
+
+No MySQL Workbench, também é possível abrir o arquivo `sql/schema.sql` e clicar no botão de executar (ícone de raio).
 
 ## Aplicativo web (HTML, CSS e JavaScript)
 
