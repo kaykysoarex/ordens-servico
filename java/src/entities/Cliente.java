@@ -3,8 +3,8 @@ package entities;
 public class Cliente {
 
     // ENCAPSULAMENTO: atributos privados, acesso só por getters
-    private String nome;
-    private String telefone;
+    private final String nome;
+    private final String telefone;
 
     // CONSTRUTOR: toda ordem nasce com um cliente completo
     public Cliente(String nome, String telefone) {
