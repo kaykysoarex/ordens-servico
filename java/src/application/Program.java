@@ -27,32 +27,32 @@ public class Program {
 
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);                 // números com ponto (ex.: 50.00)
-        final Scanner sc = new Scanner(System.in);
-        final GestorOrdens gestor = new GestorOrdens();
+        try (final Scanner sc = new Scanner(System.in)) {
+            final GestorOrdens gestor = new GestorOrdens();
 
-        int opcao = -1;
-        while (opcao != 0) {
-            menu();
-            opcao = lerInt(sc, "Opção: ");
-            final Instant agora = Instant.now();      // momento atual, em UTC
+            int opcao = -1;
+            while (opcao != 0) {
+                menu();
+                opcao = lerInt(sc, "Opção: ");
+                final Instant agora = Instant.now();  // momento atual, em UTC
 
-            switch (opcao) {
-                case 1: abrirOrdem(sc, gestor, agora); break;
-                case 2: adicionarItem(sc, gestor); break;
-                case 3: iniciar(sc, gestor); break;
-                case 4: concluir(sc, gestor, agora); break;
-                case 5: listar(gestor.todas(), agora); break;
-                case 6: listarPorStatus(sc, gestor, agora); break;
-                case 7: listarAtrasadas(gestor, agora); break;
-                case 8: consultarGarantia(sc, gestor, agora); break;
-                case 9: carregarExemplo(gestor, agora); break;
-                case 10: exportar(gestor); break;
-                case 11: cancelar(sc, gestor); break;
-                case 0: System.out.println("Até logo!"); break;
-                default: System.out.println("Opção inválida.");
+                switch (opcao) {
+                    case 1 -> abrirOrdem(sc, gestor, agora);
+                    case 2 -> adicionarItem(sc, gestor);
+                    case 3 -> iniciar(sc, gestor);
+                    case 4 -> concluir(sc, gestor, agora);
+                    case 5 -> listar(gestor.todas(), agora);
+                    case 6 -> listarPorStatus(sc, gestor, agora);
+                    case 7 -> listarAtrasadas(gestor, agora);
+                    case 8 -> consultarGarantia(sc, gestor, agora);
+                    case 9 -> carregarExemplo(gestor, agora);
+                    case 10 -> exportar(gestor);
+                    case 11 -> cancelar(sc, gestor);
+                    case 0 -> System.out.println("Até logo!");
+                    default -> System.out.println("Opção inválida.");
+                }
             }
         }
-        sc.close();
     }
 
     static void menu() {
@@ -105,12 +105,12 @@ public class Program {
 
     static TipoEquipamento lerTipo(Scanner sc) {
         int n = lerInt(sc, "Tipo (1-Geladeira 2-Freezer 3-Expositor 4-Outro): ");
-        switch (n) {
-            case 1: return TipoEquipamento.GELADEIRA;
-            case 2: return TipoEquipamento.FREEZER;
-            case 3: return TipoEquipamento.EXPOSITOR;
-            default: return TipoEquipamento.OUTRO;
-        }
+        return switch (n) {
+            case 1 -> TipoEquipamento.GELADEIRA;
+            case 2 -> TipoEquipamento.FREEZER;
+            case 3 -> TipoEquipamento.EXPOSITOR;
+            default -> TipoEquipamento.OUTRO;
+        };
     }
 
     // OPERAÇÕES ----------------------------------------------------------
@@ -182,15 +182,16 @@ public class Program {
 
     static void listarPorStatus(Scanner sc, GestorOrdens gestor, Instant agora) {
         int n = lerInt(sc, "Status (1-Aberta 2-Em andamento 3-Concluída 4-Cancelada): ");
-        StatusOS status;
-        switch (n) {
-            case 1: status = StatusOS.ABERTA; break;
-            case 2: status = StatusOS.EM_ANDAMENTO; break;
-            case 3: status = StatusOS.CONCLUIDA; break;
-            case 4: status = StatusOS.CANCELADA; break;
-            default:
-                System.out.println("Status inválido.");
-                return;
+        StatusOS status = switch (n) {
+            case 1 -> StatusOS.ABERTA;
+            case 2 -> StatusOS.EM_ANDAMENTO;
+            case 3 -> StatusOS.CONCLUIDA;
+            case 4 -> StatusOS.CANCELADA;
+            default -> null;
+        };
+        if (status == null) {
+            System.out.println("Status inválido.");
+            return;
         }
         listar(gestor.porStatus(status), agora);
     }
