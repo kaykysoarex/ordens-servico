@@ -21,7 +21,7 @@ import services.GestorOrdens;
 public class Program {
 
     // FORMATADOR: o Instant (UTC) é mostrado no horário de São Paulo
-    static final DateTimeFormatter FMT = DateTimeFormatter
+    private static final DateTimeFormatter FMT = DateTimeFormatter
             .ofPattern("dd/MM/yyyy HH:mm")
             .withZone(ZoneId.of("America/Sao_Paulo"));
 
