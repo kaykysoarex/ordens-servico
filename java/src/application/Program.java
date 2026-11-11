@@ -233,7 +233,7 @@ public class Program {
     // EXIBIÇÃO ------------------------------------------------------------
 
     static void listar(List<OrdemServico> lista, Instant agora) {
-        if (lista.size() == 0) {
+        if (lista.isEmpty()) {
             System.out.println("Nenhuma ordem encontrada.");
             return;
         }
