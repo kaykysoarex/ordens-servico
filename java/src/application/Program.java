@@ -1,5 +1,11 @@
 package application;
 
+import entities.Cliente;
+import entities.Equipamento;
+import entities.ItemServico;
+import entities.OrdemServico;
+import entities.enums.StatusOS;
+import entities.enums.TipoEquipamento;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -8,13 +14,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
-
-import entities.Cliente;
-import entities.Equipamento;
-import entities.ItemServico;
-import entities.OrdemServico;
-import entities.enums.StatusOS;
-import entities.enums.TipoEquipamento;
 import services.ExportadorJson;
 import services.GestorOrdens;
 

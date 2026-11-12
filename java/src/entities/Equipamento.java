@@ -3,7 +3,6 @@ package entities;
 import entities.enums.TipoEquipamento;
 
 public class Equipamento {
-
     private final TipoEquipamento tipo;   // ENUM usado como tipo de um atributo
     private final String modelo;
 
