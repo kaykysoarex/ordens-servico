@@ -3,7 +3,6 @@ package entities;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 
 import entities.enums.StatusOS;
@@ -20,10 +19,11 @@ public class OrdemServico {
     private Instant conclusao;    // fica null até a ordem ser concluída
     private StatusOS status;
 
-    // COMPOSIÇÃO: a ordem "tem um" cliente, "tem um" equipamento e "tem vários" itens
+    // Associações: cliente e equipamento podem existir fora desta ordem.
     private final Cliente cliente;
     private final Equipamento equipamento;
-    private final List<ItemServico> itens = new ArrayList<>();
+    // Composição: o orçamento nasce e termina junto com a ordem.
+    private final Orcamento orcamento = new Orcamento();
 
     public OrdemServico(Integer id, Cliente cliente, Equipamento equipamento,
                         String defeito, Integer prazoDias, Instant abertura) {
@@ -44,18 +44,14 @@ public class OrdemServico {
     public StatusOS getStatus() { return status; }
     public Cliente getCliente() { return cliente; }
     public Equipamento getEquipamento() { return equipamento; }
-    public List<ItemServico> getItens() { return itens; }
+    public List<ItemServico> getItens() { return orcamento.getItens(); }
 
     public void adicionarItem(ItemServico item) {
-        itens.add(item);
+        orcamento.adicionar(item);
     }
 
     public Double total() {
-        double soma = 0.0;
-        for (ItemServico item : itens) {      // LISTA percorrida com for-each
-            soma += item.subTotal();
-        }
-        return soma;
+        return orcamento.total();
     }
 
     // Regras do ciclo de vida: devolvem false se a transição não é permitida
