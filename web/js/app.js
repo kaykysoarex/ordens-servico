@@ -363,12 +363,17 @@ function executarAcao(ordem, acao) {
     return;
   }
 
-  if (acao === 'iniciar') ordem.status = 'EM_ANDAMENTO';
+  if (acao === 'iniciar') {
+    ordem.status = 'EM_ANDAMENTO';
+    filtro = 'EM_ANDAMENTO';
+  }
+
   if (acao === 'concluir') concluirOrdem(ordem);
 
   if (acao === 'cancelar') {
     if (!confirm(`Cancelar a ordem #${ordem.id}?`)) return;
     ordem.status = 'CANCELADA';
+    filtro = 'CANCELADA';
   }
 
   salvar();
