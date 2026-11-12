@@ -9,9 +9,6 @@ import entities.enums.StatusOS;
 
 public class OrdemServico {
 
-    // MEMBRO ESTÁTICO: constante da classe, igual para todas as ordens
-    private static final int DIAS_GARANTIA = 90;
-
     private final Integer id;
     private final String defeito;
     private final Integer prazoDias;
@@ -24,6 +21,8 @@ public class OrdemServico {
     private final Equipamento equipamento;
     // Composição: o orçamento nasce e termina junto com a ordem.
     private final Orcamento orcamento = new Orcamento();
+    // Composição: a ordem usa sua política para todas as consultas de garantia.
+    private final PoliticaGarantia politicaGarantia = new PoliticaGarantia();
 
     public OrdemServico(Integer id, Cliente cliente, Equipamento equipamento,
                         String defeito, Integer prazoDias, Instant abertura) {
@@ -94,12 +93,11 @@ public class OrdemServico {
         if (conclusao == null) {
             return null;
         }
-        return conclusao.plus(DIAS_GARANTIA, ChronoUnit.DAYS);
+        return politicaGarantia.terminaEm(conclusao);
     }
 
     public boolean emGarantia(Instant agora) {
-        Instant fim = garantiaAte();
-        return fim != null && agora.isBefore(fim);
+        return politicaGarantia.estaVigente(conclusao, agora);
     }
 
     public Duration tempoAtendimento() {                         // DURATION entre dois instantes
